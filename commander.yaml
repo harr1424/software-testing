@@ -1,0 +1,87 @@
+# John Harrington
+# Code Readability and Testing Spring 2022
+# Assignment One: Functional Testing
+
+# Part One: Manual Functional Testing
+# Program One: cat
+# Functionality to verify: When cat <filename> is executed, the contents
+# of <filename> should be printed to std::out
+# Assumption(s): All characters contained within the file are ASCII
+# characters, the program is not expected to send non-printing characters
+# (\n, \t, etc) to std::out.
+# Test text is contained inside  'file1.txt' and 'file2' the later
+# intentionally has no extension. file1.txt contains one string
+# 'herman melville' and file 2 contains the string '4 8 15 16 23 42'.
+# The specific command executed will be cat file1.txt file2 > output.txt.
+# Test evaluation will consist of reading output.txt to verify the text
+# contained in the files is present.
+
+tests:
+    cat file1.txt:
+        stdout: herman melville
+    cat file2: 
+        stdout: 4 8 15 16 23 42
+
+# Program Two: sort
+# Functionality to verify: sort should sort each line in the file passed as 
+# argument in relation to toher lines in the file. For example, lines 
+# beginning with numbers should be printed to std::out before lines beginning
+# with letters, and a line beginning with the letter a should be printed to 
+# std::out before a line beginning with the letter z. When two lines begin 
+# with the same letter, subsequent letters in the line determine how they 
+# are sorted. 
+# Assumption(s): All characters contained within the file where sorting 
+# is tested are ASCII and NOT non-printing characters. For example the 
+# file will contain some means of distinguishing newlines but if these 
+# are newline characters they should not impact the sort aside from 
+# delineating a newline. 
+# Test Description: The file test_sort contains the following lines: 
+# 1998
+# bell
+# cheetah
+# circus
+# gallop
+# hamburger
+# zeebra 
+# Expected output is:
+# 1998
+# bell
+# cheetah
+# circus
+# gallop
+# hamburger
+# zeebra
+    sort test_sort:
+        stdout:
+            lines:
+                2: bell
+                3: cheetah
+                4: circus
+                5: gallop
+                6: hamburger
+                7: zeebra
+
+# Note that when testing numerical lines (1998) commander reports a failed test,
+# however non-automated testing verifies that the sort program works as expectd
+
+# Program Three: grep
+# Functionality to verify: Given a string of text, the program should return 
+# all lines of a file containing that text. 
+# Assumptions: Text to search contains  ASCII characters only,
+# the term searched for will appear on multiple lines.
+# Test Description: The following sentence is the beginning to Moby Dick: 
+
+# Call me Ishmael. Some years ago—never mind how long precisely—
+# having little or no money in my purse,
+# and nothing particular to interest me on shore,
+# I thought I would sail about a little and see the watery part of the world.
+
+# Executing grep and grep_test should return the following output to std::out:
+
+# and nothing particular to interest me on shore,
+# I thought I would sail about a little and see the watery part of the world.
+
+    output should match file:
+        command: grep and grep_test
+        stdout:
+            file: output.txt
