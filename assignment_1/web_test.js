@@ -17,11 +17,12 @@ const puppeteer = require('puppeteer');
   await main_page.goto('http://webdev.cs.umt.edu/~jh243191/Resort_Database/home.html');
   await main_page.screenshot({ path: 'screenshot.png'});
 
+  // Verify all links contained on the home page are working as expected
+  // Note that any pages that interact with the MariaDB used to power
+  // the backend of this project output an error: "ERROR COULD NOT CONNECT"
+  // And so testing should detect this, and output a list of pages
+  // whoose boday contains the word "ERROR"
+
+  
   await browser.close();
 }) ();
-
-// Verify all links contained on the home page are working as expected
-// Note that any pages that interact with the MariaDB used to power
-// the backend of this project output an error: "ERROR COULD NOT CONNECT"
-// And so testing should detect this, and output a list of pages
-// whoose boday contains the word "ERROR"
