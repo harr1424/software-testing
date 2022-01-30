@@ -9,19 +9,18 @@ const puppeteer = require('puppeteer');
     },
   });
 
-  // TEST ONE: Obtain a screen shot of the home page of former project
-  // This verifies that this test can load the page and run a basic test
+  // TEST ONE: Obtain a screen shot of the home page of a former project.
+  // This verifies that the testing software can load the page and run a basic test.
   const page = await browser.newPage();
   await page.goto('http://webdev.cs.umt.edu/~jh243191/Resort_Database/home.html');
   await page.screenshot({ path: 'screenshot.png'});
 
-  // TEST TWO: Verify all links contained on the home page are working as expected
+  // TEST TWO: Verify all links contained on the home page are working as expected.
   // Note that any pages that interact with the MariaDB used to power
   // the backend of this project output an error: "ERROR COULD NOT CONNECT"
-  // And so testing should detect this, and output a list of pages
+  // Testing should detect this, and output a list of pages
   // whose body contains the word "ERROR COULD NOT CONNECT"
   const urls = await page.$$eval('a', anchors => anchors.map(a => a.href));
-  //console.log(urls)
   for (let url of urls) {
     try{
       await page.goto(url);
@@ -36,9 +35,9 @@ const puppeteer = require('puppeteer');
     }
   }
 
-  // TEST THREE: Similar to above, but this time check HTTP response codes
-  // If all pages return an HTTP response code of 200, this will be output
-  // Else, the page(s) not returning an HTTP response code of 200 will be output
+  // TEST THREE: Similar to above, but this time check HTTP response codes.
+  // If all pages return an HTTP response code of 200, output a message to tester.
+  // Else, the page(s) not returning an HTTP response code of 200 will be output.
   var all_response_ok = new Boolean(true);
   for (let url of urls) {
     try{
@@ -60,7 +59,8 @@ const puppeteer = require('puppeteer');
   await browser.close();
 }) ();
 
-// Create a browser object with headless set to false
+// Create a new browser object with headless set to false.
+// Useful for watching the test program type input to the web page.
 (async () => {
   const browser = await puppeteer.launch({
     headless: false,
@@ -73,7 +73,7 @@ const puppeteer = require('puppeteer');
 
 
   // Since the two tests above are quite similar, TEST FOUR
-  // will attempt to submit form data. IDeally, a site administrator
+  // will attempt to submit form data. Ideally, a site administrator
   // could then verify the test data was submitted, but in this case,
   // as mentioned above, the MariaDB that powers this functionality is
   // not working.
