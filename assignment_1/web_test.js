@@ -27,7 +27,7 @@ const puppeteer = require('puppeteer');
       await page.waitForSelector('body');
       const bodyContent = await page.$eval('body', b => b.innerHTML);
       if (bodyContent.includes("ERROR COULD NOT CONNECT")) {
-        console.log("ERROR COULD NOT CONNECT (known MariaDB issue) at ", url);
+        console.log("known MariaDB issue at ", url);
       }
     } catch (error) {
       console.log(error);
