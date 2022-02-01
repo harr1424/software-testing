@@ -1,0 +1,33 @@
+    sort test_sort:
+        stdout:
+            lines:
+                1: "1998"
+                2: bell
+                3: cheetah
+                4: circus
+                5: gallop
+                6: hamburger
+                7: zeebra
+        exit-code: 0
+    sort -r test_sort:
+        stdout:
+            lines:
+                1: zeebra
+                2: hamburger
+                3: gallop
+                4: circus
+                5: cheetah
+                6: bell
+                7: "1998"
+        exit-code: 0
+    sort -u test_sort:
+        stdout:
+            lines:
+                1: "1998"
+                2: bell
+                3: cheetah
+                4: circus
+                5: gallop
+                6: hamburger
+                7: zeebra
+        exit-code: 0

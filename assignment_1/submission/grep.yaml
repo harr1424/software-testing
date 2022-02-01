@@ -1,0 +1,5 @@
+output should match file:
+        command: grep and grep_test
+        stdout:
+            file: output.txt
+        exit-code: 0

@@ -1,0 +1,7 @@
+tests:
+    cat file1.txt:
+        stdout: herman melville
+        exit-code: 0
+    cat file2: 
+        stdout: 4 8 15 16 23 42
+        exit-code: 0
