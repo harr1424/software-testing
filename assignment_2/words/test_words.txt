@@ -1,0 +1,6 @@
+hello this is a doctest
+>>> x = 3
+>>> x
+3
+
+Testing split_words():
