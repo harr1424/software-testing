@@ -82,7 +82,7 @@ def count_words(sentence: str) -> int:
     0
     >>> count_words("\t")
     0
-    >>> count_words("Multipls spaces          should be treated   as one space.")
+    >>> count_words("Multiples spaces          should be treated   as one space.")
     8
     >>> count_words("Testing \ttabs\t and\t \t spaces")
     4
@@ -90,7 +90,6 @@ def count_words(sentence: str) -> int:
     return len(split_words(sentence))
 
 
-
-# TODO use unit tsting to write tests that should fails
+# TODO use unit testing to write tests that should fails
 # Explore asserting unhandled exceptions
 # Also test extremely large strings using project Gutenberg
