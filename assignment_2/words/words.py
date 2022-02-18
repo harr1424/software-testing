@@ -1,5 +1,7 @@
 from typing import List
 
+import pytest
+
 """
 John Harrington
 Software Reliability and Testing, Spring, 2022
@@ -8,8 +10,7 @@ Assignment Two
 In this assignment submission, doctests are preferentially used to highlight intended use cases of functions 
 and so the tests written as doctests are intended to succeed. Tests have also been written which are intended 
 to fail, and these are included as unit tests at the end of the file. Unit tests have been used preferentially 
-for tests that should fail because these tests involve asserting unhandled exceptions and errors and so including 
-these tests as unit tests instead of doctests makes this submission significantly more readable
+for tests that should fail because these tests involve asserting unhandled exceptions.
 """
 
 
@@ -90,6 +91,17 @@ def count_words(sentence: str) -> int:
     return len(split_words(sentence))
 
 
-# TODO use unit testing to write tests that should fails
-# Explore asserting unhandled exceptions
-# Also test extremely large strings using project Gutenberg
+# TODO use unit testing to write tests that should fail
+
+def test_split_words_illegal_arg_type():
+    with pytest.raises(TypeError):
+        split_words(108) == 108
+
+
+def test_split_words_illegal_num_args():
+    with pytest.raises(TypeError):
+        split_words("Hello", "World")
+
+
+
+
