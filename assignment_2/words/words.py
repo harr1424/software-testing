@@ -13,8 +13,11 @@ to fail, and these are included as unit tests at the end of the file. Unit tests
 for tests that should fail because these tests involve asserting unhandled exceptions.
 
 KNOWN ISSUES: 
-join_words() is defined to accept a list of strings. If this function is passed a single string, 
-instead of raising a TypeError, it will return the string with a single space added between each character.
+join_words() is defined to accept a list of strings. If this function is passed a single string, tuple, or dictionary
+instead of raising a TypeError, it will return the string, sequence, or keys with a single space added between 
+each character in the sequence or key list. An exhaustive set of type that produce this behavior has not been tested, 
+but it is certain that this function should perform a type check to ensure only a list is passed as described 
+in the function's documentation. 
 """
 
 
@@ -104,9 +107,33 @@ test_dict = {
     "d" : 4
 }
 
-def test_split_words_illegal_arg_type():
+def test_split_words_illegal_arg_type_int():
     with pytest.raises(TypeError):
         split_words(108)
+
+
+
+def test_split_words_illegal_arg_type_list_of_strings():
+    with pytest.raises(TypeError):
+        split_words(['This', 'should', 'be', 'a', 'string.'])
+        """
+        This test does not perform as expected, and indicates an error with the split_words function. 
+        When a list is passed to this function, instead of raising a TypeError, the function will 
+        join list items (in this case strings) without spaces and return a single item
+        """
+
+
+def test_split_words_illegal_arg_type_list_of_ints():
+    with pytest.raises(TypeError):
+        split_words([4, 8, 15, 16, 23, 42])
+
+
+def test_split_words_illegal_arg_type_boolean():
+    with pytest.raises(TypeError):
+        split_words(False)
+
+
+def test_split_words_illegal_arg
 
 
 def test_split_words_illegal_num_args():
