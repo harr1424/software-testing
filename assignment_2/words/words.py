@@ -18,6 +18,12 @@ instead of raising a TypeError, it will return the string, sequence, or keys wit
 each character in the sequence or key list. An exhaustive set of type that produce this behavior has not been tested, 
 but it is certain that this function should perform a type check to ensure only a list is passed as described 
 in the function's documentation. 
+
+Similarly, split_words() behaves unexpectedly when sequence or mapping types are passed as arguments, 
+and should also be updated to raise a TypeError when any type besides a string is passed as an argument. 
+
+Finally, count_words() also behaves unexpectedly when sequence or mapping types are passed as arguments, 
+and should also be updated to raise a TypeError when any type besides a string is passed as an argument. 
 """
 
 
@@ -101,16 +107,16 @@ def count_words(sentence: str) -> int:
 # Use unit testing to write tests that should fail
 
 test_dict = {
-    "a" : 1,
-    "b" : 2,
-    "c" : 3,
-    "d" : 4
+    "a": 1,
+    "b": 2,
+    "c": 3,
+    "d": 4
 }
+
 
 def test_split_words_illegal_arg_type_int():
     with pytest.raises(TypeError):
         split_words(108)
-
 
 
 def test_split_words_illegal_arg_type_list_of_strings():
@@ -119,7 +125,7 @@ def test_split_words_illegal_arg_type_list_of_strings():
         """
         This test does not perform as expected, and indicates an error with the split_words function. 
         When a list is passed to this function, instead of raising a TypeError, the function will 
-        join list items (in this case strings) without spaces and return a single item
+        join list items (in this case strings) without spaces and return a single item.
         """
 
 
@@ -133,7 +139,14 @@ def test_split_words_illegal_arg_type_boolean():
         split_words(False)
 
 
-def test_split_words_illegal_arg
+def test_split_words_illegal_arg_type_dict():
+    with pytest.raises(TypeError):
+        split_words(test_dict)
+        """
+        This test does not perform as expected, and indicates an error with the split_words function. 
+        When a dict is passed to this function, instead of raising a TypeError, the function will 
+        return the dictionary keys.
+        """
 
 
 def test_split_words_illegal_num_args():
@@ -149,6 +162,7 @@ def test_join_words_illegal_arg_type_string():
         function. If a string is passed to this function, instead of raising a TypeError, 
         join_words will return the string with an added space in between each character of the string.
         """
+
 
 def test_join_words_illegal_arg_type_int():
     with pytest.raises(TypeError):
@@ -169,7 +183,8 @@ def test_join_words_illegal_arg_type_dict():
         join_words will return the dictionary keys.
         """
 
-def test_join_Words_illegal_arg_type_tuple():
+
+def test_join_words_illegal_arg_type_tuple():
     with pytest.raises(TypeError):
         join_words(("This", "should", "be", "a", "list."))
         """
@@ -178,9 +193,74 @@ def test_join_Words_illegal_arg_type_tuple():
         join_words will return the tuple with an added space in between each item of the tuple.
         """
 
+
 def test_join_words_illegal_num_args():
     with pytest.raises(TypeError):
         join_words(['list', 'one'], ['list', 'two'])
+
+
+def test_count_words_illegal_arg_type_int():
+    with pytest.raises(TypeError):
+        count_words(108)
+
+
+def test_count_words_illegal_arg_type_list_of_words():
+    with pytest.raises(TypeError):
+        count_words(['This', 'should', 'be', 'a', 'string.'])
+        """
+        This test does not perform as expected, and indicates an error with the count_words
+        function. If a single list of strings is passed as an argument, count_words() will return 
+        a count of 1. 
+        """
+
+
+def test_count_words_illegal_arg_type_list_of_ints():
+    with pytest.raises(TypeError):
+        count_words([4, 8, 6])
+
+
+def test_count_words_illegal_arg_type_boolean():
+    with pytest.raises(TypeError):
+        count_words(False)
+
+
+def test_count_words_illegal_arg_type_dict():
+    with pytest.raises(TypeError):
+        count_words(test_dict)
+        """
+        This test does not perform as expected, and indicates an error with the count_words
+        function. If a dictionary is passed as an argument, count_words() will return a count of 1.
+        """
+
+
+def test_count_words_illegal_num_args():
+    with pytest.raises(TypeError):
+        count_words("Sentence one.", "Sentence two.")
+
+
+# The following unit tests use a very long string, declared in a separate file, to test extreme values
+# First, convert text file to very long string:
+with open('moby_dick.txt', 'r') as file:
+    long_string = file.read().replace('\n', '')
+
+
+with open('intro.txt', 'r') as file:
+    moderate_string = file.read().replace('\n', '')
+
+
+def test_split_words_long_string():
+    assert type(split_words(long_string)) == List
+    # This test indicates that a problem occurs when passing in a very long string
+
+
+
+def test_split_words_moderate_string():
+    assert type(split_words(moderate_string)) == List
+    # This test indicates that a problem occurs when passing in a string of ~1000 characters
+
+
+
+
 
 
 

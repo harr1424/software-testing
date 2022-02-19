@@ -34,8 +34,34 @@ def split_words(sentence):
     return words
 
 
-with open('intro.txt', 'r') as file:
-    # strip newlines to get one string of text
-    data = file.read().replace('\n', '')
+def count_words(sentence):
+    """
+    Count the number of words in the sentence. A word boundary is defined to be
+    any number of space or tab characters.
+    >>> count_words("Hello world!")
+    2
+    >>> count_words('')
+    0
+    >>> count_words("\t")
+    0
+    >>> count_words("Multiples spaces          should be treated   as one space.")
+    8
+    >>> count_words("Testing \ttabs\t and\t \t spaces")
+    4
+    """
+    return len(split_words(sentence))
 
-print(len(data))
+test_dict = {
+    "a": 1,
+    "b": 2,
+    "c": 3,
+    "d": 4
+}
+
+
+test = count_words(test_dict)
+print(test)
+
+
+
+
