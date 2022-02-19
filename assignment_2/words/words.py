@@ -238,25 +238,6 @@ def test_count_words_illegal_num_args():
         count_words("Sentence one.", "Sentence two.")
 
 
-# The following unit tests use a very long string, declared in a separate file, to test extreme values
-# First, convert text file to very long string:
-with open('moby_dick.txt', 'r') as file:
-    long_string = file.read().replace('\n', '')
-
-
-with open('intro.txt', 'r') as file:
-    moderate_string = file.read().replace('\n', '')
-
-
-def test_split_words_long_string():
-    assert type(split_words(long_string)) == List
-    # This test indicates that a problem occurs when passing in a very long string
-
-
-
-def test_split_words_moderate_string():
-    assert type(split_words(moderate_string)) == List
-    # This test indicates that a problem occurs when passing in a string of ~1000 characters
 
 
 

@@ -38,4 +38,6 @@ with open('intro.txt', 'r') as file:
     # strip newlines to get one string of text
     data = file.read().replace('\n', '')
 
-print(len(data))
+test = split_words(data)
+print(test)
+print(type(test))
