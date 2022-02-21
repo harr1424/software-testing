@@ -10,7 +10,7 @@ Assignment Two
 In this assignment submission, doctests are preferentially used to highlight intended use cases of functions 
 and so the tests written as doctests are intended to succeed. Tests have also been written which are intended 
 to fail, and these are included as unit tests at the end of the file. Unit tests have been used preferentially 
-for tests that should fail because these tests involve asserting unhandled exceptions.
+for tests that should fail because these tests involve unhandled exceptions.
 
 KNOWN ISSUES: 
 join_words() is defined to accept a list of strings. If this function is passed a single string, tuple, or dictionary
@@ -74,7 +74,7 @@ def join_words(words: List[str]) -> str:
     >>> join_words([])
     ''
     >>> join_words(['Empty', '', 'strings', '', 'yield', '', 'spaces.'])
-    'Empty  strings  yield  spaces.'
+    'Empty  strings  yield  spaces.'`
     """
     sentence = ""
 
@@ -104,8 +104,7 @@ def count_words(sentence: str) -> int:
     return len(split_words(sentence))
 
 
-# Use unit testing to write tests that should fail
-
+# Dictionary to be used in unit testing
 test_dict = {
     "a": 1,
     "b": 2,
