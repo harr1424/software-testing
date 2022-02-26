@@ -1,5 +1,11 @@
 import re
+import pytest
 
+"""
+John Harrington
+Software Reliability and Testing, Spring, 2022
+Assignment Three: Dependency Injection
+"""
 
 class Helper:
     """
@@ -19,8 +25,22 @@ class Helper:
             [(2, 0), (1, 1), (0, 2)],
         ]
 
-    # Helper method to take turns
     def take_turn(self, curr_player):
+        """
+        Helper function to allow the program to take turns between two users:
+        An 'X' user, and an 'O' user.
+        >>> Helper.take_turn(Helper(), 'X')
+        'O'
+        >>> Helper.take_turn(Helper(), 'O')
+        'X'
+        >>> Helper.take_turn(Helper(), '0')
+        Traceback (most recent call last):
+        ...
+        RuntimeError: Current player was not defined as either 'X' or 'O'
+
+        :param curr_player:
+        :return:
+        """
         if curr_player == 'X':
             return 'O'
         elif curr_player == 'O':
