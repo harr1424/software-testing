@@ -84,7 +84,7 @@ class Helper:
         # Update the board object
         board[row_index][col_index] = curr_player
 
-    def winner_check(self, row_index, col_index, curr_player, board):
+    def winner_check(self, curr_player, board):
         """
         Inspects most recent update to game board (last player's turn)
         to determine if either player has won.
@@ -132,7 +132,7 @@ class Game:
             self.helper.next_move(self.turn, self.board)
 
             # Check for a winner
-            self.helper.winner_check(self.row_index, self.col_index, self.turn, self.board)
+            self.helper.winner_check(self.turn, self.board)
 
             # There was no winner, so go to the next player
             self.turn = self.helper.take_turn(self.turn)

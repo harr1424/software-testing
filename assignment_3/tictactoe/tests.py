@@ -39,15 +39,70 @@ def test_next_move_invalid_input(monkeypatch):
         test_helper.next_move("X", test_game.board)
 
 
-def test_winner_check_diagonal(capfd):
+def test_winner_check_diagonal():
+    with pytest.raises(SystemExit) as e:
+        test_board = [
+                ["X", " ", " "],
+                [" ", "X", " "],
+                [" ", " ", "X"],
+            ]
+        test_game = tictactoe.Game(tictactoe.Helper)
+        test_helper = tictactoe.Helper()
+        test_helper.winner_check('X', test_board)
+        assert e.type == SystemExit
+        assert e.value.code == 0
+
+
+def test_winner_check_row():
+    with pytest.raises(SystemExit) as e:
+        test_board = [
+                ["X", "X", "X"],
+                [" ", " ", " "],
+                [" ", " ", " "],
+            ]
+        test_game = tictactoe.Game(tictactoe.Helper)
+        test_helper = tictactoe.Helper()
+        test_helper.winner_check('X', test_board)
+        assert e.type == SystemExit
+        assert e.value.code == 0
+
+
+def test_winner_check_col():
+    with pytest.raises(SystemExit) as e:
+        test_board = [
+                ["O", " ", " "],
+                ["O", " ", " "],
+                ["O", " ", " "],
+            ]
+        test_game = tictactoe.Game(tictactoe.Helper)
+        test_helper = tictactoe.Helper()
+        test_helper.winner_check('O', test_board)
+        assert e.type == SystemExit
+        assert e.value.code == 0
+
+
+def test_winner_check_fails_position_marked_by_other_player(capfd):
     test_board = [
-            ["X", " ", " "],
-            [" ", "X", " "],
-            [" ", " ", " "],
+            ["O", " ", " "],
+            ["O", " ", " "],
+            ["O", " ", " "],
         ]
     test_game = tictactoe.Game(tictactoe.Helper)
     test_helper = tictactoe.Helper()
-    test_helper.winner_check(2, 2, 'X', test_board)
+    test_helper.winner_check('X', test_board)
     out, err = capfd.readouterr()
-    assert out == "Congratulations X, you won!"
+    assert out == ""
 
+
+def test_winner_check_fails_incomplete_sequence(capfd):
+    # This board configuration can't actually occur, but it is a decent example of a corner case
+    test_board = [
+            ["O", "X", "O"],
+            ["X", "X", "O"],
+            ["O", "O", "X"],
+        ]
+    test_game = tictactoe.Game(tictactoe.Helper)
+    test_helper = tictactoe.Helper()
+    test_helper.winner_check('X', test_board)
+    out, err = capfd.readouterr()
+    assert out == ""
