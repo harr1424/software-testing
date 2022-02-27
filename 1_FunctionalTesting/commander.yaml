@@ -1,8 +1,8 @@
 # John Harrington
 # Code Readability and Testing Spring 2022
-# Assignment One: Functional Testing
+# Assignment One: 1_FunctionalTesting
 
-# Part One: Manual Functional Testing
+# Part One: Manual 1_FunctionalTesting
 # Program One: cat
 # Functionality to verify: When cat <filename> is executed, the contents
 # of <filename> should be printed to std::out
