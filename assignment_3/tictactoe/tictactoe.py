@@ -1,11 +1,11 @@
 import re
-import pytest
 
 """
 John Harrington
 Software Reliability and Testing, Spring, 2022
 Assignment Three: Dependency Injection
 """
+
 
 class Helper:
     """
@@ -48,15 +48,25 @@ class Helper:
         else:
             raise RuntimeError("Current player was not defined as either 'X' or 'O'")
 
-    # Helper method to print board
     def print_board(self, board):
+        """
+        Helper method to print the game board.
+        See tests.py for unit testing using a mock object.
+        :param board:
+        :return:
+        """
         print("  1 2 3")
         for i in range(3):
             print(f"{i + 1} " + "|".join(board[i]))
 
-    # Accept the current player's next move, validate it,
-    # and update the board's state
     def next_move(self, curr_player, board):
+        """
+        Accept the current player's next move, validate it,and update the board's state.
+        See tests.py for unit testing using a mock object.
+        :param curr_player:
+        :param board:
+        :return:
+        """
         # Get next move from user
         move = input(f"{curr_player}'s move, enter row and column: ")
         row, col = re.split(r"[ \t,]+", move)
@@ -75,7 +85,16 @@ class Helper:
         board[row_index][col_index] = curr_player
 
     def winner_check(self, row_index, col_index, curr_player, board):
-        # Check for a winner
+        """
+        Inspects most recent update to game board (last player's turn)
+        to determine if either player has won.
+        See tests.py for unit testing using a mock object.
+        :param row_index:
+        :param col_index:
+        :param curr_player:
+        :param board:
+        :return:
+        """
         winner = False
 
         for config in self.configs:
@@ -127,3 +146,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
