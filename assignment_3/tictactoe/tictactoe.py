@@ -89,8 +89,6 @@ class Helper:
         Inspects most recent update to game board (last player's turn)
         to determine if either player has won.
         See tests.py for unit testing using a mock object.
-        :param row_index:
-        :param col_index:
         :param curr_player:
         :param board:
         :return:
@@ -146,6 +144,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-

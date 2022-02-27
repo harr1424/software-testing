@@ -11,6 +11,49 @@ def test_print_board(capfd):
     assert out == "  1 2 3\n1  | | \n2  | | \n3  | | \n"
 
 
+def test_print_board_one_turn(monkeypatch,capfd):
+    """
+     Simulates one cycle through the while loop contained in Game.play
+     The initial board output has been omitted as this test is concerned
+     with the board printed after one 'turn' has been taken.
+    """
+    test_game = tictactoe.Game(tictactoe.Helper)
+    test_helper = tictactoe.Helper()
+    monkeypatch.setattr('builtins.input', lambda _: "2,2")
+    test_helper.next_move('X', test_game.board)
+    test_helper.winner_check('X', test_game.board)
+    test_helper.take_turn('X')
+    test_helper.print_board(test_game.board)
+    out, err = capfd.readouterr()
+    assert out == "  1 2 3\n1  | | \n2  |X| \n3  | | \n"
+
+
+def test_print_board_three_turns(monkeypatch,capfd):
+    """
+     Simulates three cycles through the while loop contained in Game.play
+     The initial board output and the board output at the beginning of each turn
+     have been omitted as this test is concerned only with the final board state.
+    """
+    test_game = tictactoe.Game(tictactoe.Helper)
+    test_helper = tictactoe.Helper()
+    responses = iter(['2,2', '1,1', '3,3'])
+    monkeypatch.setattr('builtins.input', lambda _: next(responses))
+    test_helper.next_move('X', test_game.board)
+    test_helper.winner_check('X', test_game.board)
+    test_helper.take_turn('X')
+    monkeypatch.setattr('builtins.input', lambda _: next(responses))
+    test_helper.next_move('O', test_game.board)
+    test_helper.winner_check('O', test_game.board)
+    test_helper.take_turn('O')
+    monkeypatch.setattr('builtins.input', lambda _: next(responses))
+    test_helper.next_move('X', test_game.board)
+    test_helper.winner_check('X', test_game.board)
+    test_helper.take_turn('X')
+    test_helper.print_board(test_game.board)
+    out, err = capfd.readouterr()
+    assert out == "  1 2 3\n1 O| | \n2  |X| \n3  | |X\n"
+
+
 def test_next_move(monkeypatch):
     test_game = tictactoe.Game(tictactoe.Helper)
     test_helper = tictactoe.Helper()
