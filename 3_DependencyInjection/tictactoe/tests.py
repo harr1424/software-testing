@@ -65,6 +65,29 @@ def test_next_move(monkeypatch):
             [" ", " ", " "],
         ]
 
+def test_next_move_three_turns(monkeypatch):
+    test_game = tictactoe.Game(tictactoe.Helper)
+    test_helper = tictactoe.Helper()
+    responses = iter(['2,2', '1,1', '3,3'])
+    monkeypatch.setattr('builtins.input', lambda _: next(responses))
+    test_helper.next_move("X", test_game.board)
+    test_helper.winner_check('X', test_game.board)
+    test_helper.take_turn('X')
+    monkeypatch.setattr('builtins.input', lambda _: next(responses))
+    test_helper.next_move('O', test_game.board)
+    test_helper.winner_check('O', test_game.board)
+    test_helper.take_turn('O')
+    monkeypatch.setattr('builtins.input', lambda _: next(responses))
+    test_helper.next_move('X', test_game.board)
+    test_helper.winner_check('X', test_game.board)
+    test_helper.take_turn('X')
+    assert test_game.board == [
+            ["O", " ", " "],
+            [" ", "X", " "],
+            [" ", " ", "X"],
+        ]
+
+
 
 def test_next_move_invalid_int(monkeypatch):
     with pytest.raises(IndexError):
